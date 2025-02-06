@@ -1,0 +1,9 @@
+.form-control{
+    @apply w-full rounded-lg p-1;
+
+}
+
+.btn-main{
+    @apply me-2 px-4 py-2 bg-green-400 text-white hover:bg-white hover:text-green-400 border-2  hover:border-solid hover:border-green-400  transition hover:scale-110 rounded-lg  ;
+
+}
