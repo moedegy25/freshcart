@@ -1,0 +1,63 @@
+<div class="container mx-auto mt-8 px-9  md:px-0">
+
+  <app-homeslider> </app-homeslider>
+<app-categoryslider></app-categoryslider>
+
+    <div class="searchInput w-1/2 mx-auto my-6 flex gap-3">
+        <input type="text" [(ngModel)]="userWord" class="form-control focus:outline-green-400   focus:outline-4 focus:border-0" placeholder=" serch by {{serchType}}">
+        <div class="relative inline-block text-left">
+            <button (click)="toggleDropdown()" class="px-4 py-2 text-white bg-green-400 rounded-lg hover:bg-green-700">
+                <i class="fas fa-filter"></i>
+            </button>
+            
+            <div id="dropdown" [class.hidden]="toggleserchdropdpwn"  class=" absolute right-0 mt-2 w-48 bg-white border rounded-lg shadow-lg">
+                <a  (click)="setSerchType('title') ; toggleDropdown()" class="block px-4 py-2 text-gray-700 hover:bg-green-200"> title</a>
+                <a  (click)="setSerchType('category') ;toggleDropdown()"  class="block px-4 py-2 text-gray-700 hover:bg-green-200"> category</a>
+                <a   (click)="setSerchType('price') ;toggleDropdown()"   class="block px-4 py-2 text-gray-700 hover:bg-green-200">price</a>
+            </div>
+        </div> 
+    </div>
+
+
+@if(productList){
+    <div class=" grid  sm:grid-cols-2    md:grid-cols-4 lg:grid-cols-6  gap-3">
+        @for(product of productList | search :userWord:serchType; track $index) {
+        <div class=" bg-[#F3F3F5] rounded-2xl p-1 pb-2 cursor-pointer "  [routerLink]="['/Productdetails',product._id]"  >
+            <img [src]="product.imageCover" class="w-full rounded" [alt]="product.title">
+             <span class="text-green-400  font-semibold"> {{product.category.name}}</span>
+              <p class="font-bold text-lg my-3">{{product.title.split(' ').splice(0,2).join(' ')}}</p>
+            <div>
+            <i class="fa fa-star text-yellow-300 ">    </i>
+            <span>{{product.ratingsAverage}}</span> 
+            <span class="text-gray-300"> ({{product.ratingsQuantity}})</span>
+            </div>
+            <div class="flex justify-between items-center my-3"> 
+                <span> {{product.price }} EGP</span>
+            <button class="btn-main block">+</button>
+            </div>
+            </div>
+        
+     }
+</div>
+
+}@else {
+  <div class="text-center mx-auto">
+  <i class="fa-solid fa-spinner fa-spin-pulse text-3xl "></i> </div>
+}
+
+  <nav aria-label="Page navigation example" class="mx-auto my-8 w-fit">
+    <ul class="inline-flex -space-x-px text-base h-10 ">
+
+      <li>
+        <a   (click)="getPage(1)"    [class.bg-green-300]=" (pageInicitors ==1)? true :false"   class="  flex items-center justify-center px-4 h-10 leading-tight text-gray-500  border border-gray-300 cursor-pointer hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">1</a>
+      </li>
+      <li>
+        <a  (click)="getPage(2)"  [class.bg-green-300]=" (pageInicitors ==2)? true :false"  class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500  border border-gray-300 cursor-pointer hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">2</a>
+      </li>
+
+ 
+    </ul>
+  </nav>
+  
+</div>
+

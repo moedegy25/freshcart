@@ -1,0 +1,76 @@
+
+
+
+<section class="mt-5 py-5">
+    <div class="container mx-auto">
+    <div class="flex flex-wrap justify-center">
+        <form [formGroup]="registerForm" (ngSubmit)="submitRegisterForm()" class="w-1/2 ">
+          <h1 class="text-3xl font-bold mb-2">register:</h1>
+          @if (errmsg) {
+            <div class=" bg-red-300 text-red-700 p-1 rounded-lg text-center">
+            <p> {{errmsg}} </p>
+            </div>
+            }
+            <div class=" mb-3">
+                <label for="input3">Name:</label>
+                <input  formControlName="name"  type="text"     class="form-control  "   id="input3"   placeholder="" />
+                @if(registerForm.get("name")?.touched && registerForm.get("name")?.invalid){
+                <div class=" bg-red-300 text-red-700 p-1 rounded-lg">
+                  @if(registerForm.get("name")?.errors?.["required"] ){ <p>name is required</p>}
+                  @if(registerForm.get("name")?.errors?.["minlength"] ){ <p>name min length : 3</p>}
+                    @if(registerForm.get("name")?.errors?.["maxlength"] ){<p>name max length: 8</p>}
+                    <!-- .get("formControlName") to get formControl object -->
+                  </div>}
+              </div>
+    
+        <div class=" mb-3 ">
+            <label for="input1">Email :</label>
+          <input  formControlName="email"   type="email"     class="form-control   "   id="input1"   placeholder="" />
+          @if(registerForm.get("email")?.touched && registerForm.get("email")?.invalid){
+            <div class=" bg-red-300 text-red-700 p-1 rounded-lg">
+              @if(registerForm.get("email")?.errors?.["required"] ){ <p>email is required</p>}
+              @if(registerForm.get("email")?.errors?.["email"] ){ <p>email not valid </p>}
+              </div>}
+        </div>
+
+ 
+         
+          <div class=" mb-3">
+            <label for="input4">Password:</label>
+            <input   formControlName="password" type="password"     class="form-control  "   id="input4"   placeholder="" />
+            @if(registerForm.get("password")?.touched && registerForm.get("password")?.invalid){
+              <div class=" bg-red-300 text-red-700 p-1 rounded-lg">
+                @if(registerForm.get("password")?.errors?.["required"] ){ <p>password is required</p>}
+                @if(registerForm.get("password")?.errors?.["pattern"] ){ <p>password not valid </p>}
+                </div>}
+          </div>
+          <div class=" mb-3">
+            <label for="input5">Repassword:</label>
+            <input  formControlName="rePassword"  type="password"     class="form-control  "   id="input5"   placeholder="" />
+            @if(registerForm.get("rePassword")?.touched && registerForm.get("rePassword")?.invalid){
+              <div class=" bg-red-300 text-red-700 p-1 rounded-lg">
+                @if(registerForm.get("rePassword")?.errors?.["required"] ){ <p>rePassword is required</p>}
+                @if(registerForm.get("rePassword")?.errors?.["mismatch"] ){ <p>rePassword not match ppassword </p>}
+                </div>}
+          </div>
+          <div class=" mb-3">
+            <label for="input2">Phone:</label>
+            <input formControlName="phone"   type="tel"     class="form-control  "   id="input2"   placeholder="" />
+            @if(registerForm.get("phone")?.touched && registerForm.get("phone")?.invalid){
+              <div class=" bg-red-300 text-red-700 p-1 rounded-lg">
+                @if(registerForm.get("phone")?.errors?.["required"] ){ <p>phone is required</p>}
+                @if(registerForm.get("phone")?.errors?.["pattern"] ){ <p>phone not valid </p>}
+                </div>}
+            
+          </div> 
+  
+          <button  [disabled]="registerForm.invalid" [class.btn-main]="!registerForm.invalid" [class.btn-disabled]="registerForm.invalid" type="submit" class=" block ms-auto  "> 
+            @if(isLoading){ <span><i class="fa fa-spinner fa-spin"></i></span>
+         } @else{<span>register</span>} </button>
+           
+        </form>
+
+    </div>
+    </div>
+    </section>
+    
